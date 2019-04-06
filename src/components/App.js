@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
+import GovernmentSizeChooser from './GovernmentSizeChooser';
 import GovernmentFixer from './GovernmentFixer';
 import '../css/App.css';
 
-export default function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <GovernmentFixer size="municipal" />
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { size: 'municipal' };
+  }
+  chooseSize = (size) => {
+    this.setState({ size });
+  }
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <GovernmentSizeChooser
+            sizes={['municipal', 'state', 'federal']}
+            onSelectSize={this.chooseSize}
+          />
+          <GovernmentFixer size={this.state.size} />
+        </header>
+      </div>
+    );
+  }
 }
+
+export default App;
